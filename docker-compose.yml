@@ -1,0 +1,25 @@
+services:
+
+  db:
+    image: postgres
+    restart: always
+    shm_size: 256mb
+    environment:
+      POSTGRES_USER: user_admin
+      POSTGRES_PASSWORD: over123
+      TZ: "Asia/Novosibirsk"
+    ports:
+      - 5432:5432
+    container_name: overgres
+    volumes:
+      - /home/Overhand/vscode/postgresql/:/var/lib/postgresql/data
+  fastapi:
+    image: local/faspapi
+    restart: always
+    environment:
+      TZ: "Asia/Novosibirsk"
+    ports:
+      - 8000:8000
+    container_name: fastapi
+    volumes:
+      - /home/Overhand/vscode/app/:/code/app/
