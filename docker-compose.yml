@@ -3,7 +3,6 @@ services:
   db:
     image: postgres
     restart: always
-    shm_size: 256mb
     environment:
       POSTGRES_USER: user_admin
       POSTGRES_PASSWORD: over123
@@ -12,8 +11,11 @@ services:
       - 5432:5432
     container_name: overgres
     volumes:
-      - /home/Overhand/vscode/postgresql/:/var/lib/postgresql/data
+      - ./postgresql/:/var/lib/postgresql/data
   fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: local/faspapi
     restart: always
     environment:
@@ -22,4 +24,4 @@ services:
       - 8000:8000
     container_name: fastapi
     volumes:
-      - /home/Overhand/vscode/app/:/code/app/
+      - ./app/:/code/app/
